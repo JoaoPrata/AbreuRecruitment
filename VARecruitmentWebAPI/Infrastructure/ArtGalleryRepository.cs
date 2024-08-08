@@ -46,5 +46,23 @@ namespace VAArtGalleryWebAPI.Infrastructure
             });
 
         }
+
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var galleries = await GetAllArtGalleriesAsync(cancellationToken);
+
+            galleries.RemoveAll(x => x.Id == id);
+
+            return await Task.Run(() =>
+            {
+                using TextWriter tw = new StreamWriter(_filePath, false);
+                tw.Write(JsonSerializer.Serialize(galleries));
+
+                return true;
+            });
+
+        }
     }
 }

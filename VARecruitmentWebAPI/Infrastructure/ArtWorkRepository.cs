@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using VAArtGalleryWebAPI.Domain.Interfaces;
 using VAArtGalleryWebAPI.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace VAArtGalleryWebAPI.Infrastructure
 {
@@ -35,7 +36,19 @@ namespace VAArtGalleryWebAPI.Infrastructure
 
         public async Task<bool> DeleteAsync(Guid artWorkId, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var galleries = await new ArtGalleryRepository(_filePath).GetAllArtGalleriesAsync(cancellationToken);
+
+            var galary = galleries
+                .Where(x => x.ArtWorksOnDisplay != null)
+                .FirstOrDefault(x => x.ArtWorksOnDisplay.Select(y => y.Id).Contains(artWorkId)) ?? throw new ArgumentException("unknown art work", nameof(artWorkId));
+
+            galary.ArtWorksOnDisplay.RemoveAll(x => x.Id == artWorkId);
+
+            await UpdateGalleries(galleries);
+
+            return true;
         }
 
         public async Task<List<ArtWork>> GetArtWorksByGalleryIdAsync(Guid artGalleryId, CancellationToken cancellationToken = default)

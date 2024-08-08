@@ -1,0 +1,11 @@
+.mat-mdc-table th{
+  background-color: lightblue;
+}
+
+.mat-mdc-table tr:nth-child(even) {
+  background-color: gray;
+}
+
+.mat-mdc-table tr:nth-child(odd) {
+  background-color: lightgray;
+}

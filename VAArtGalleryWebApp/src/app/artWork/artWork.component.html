@@ -1,0 +1,30 @@
+<div>
+  <h1>
+    Obras de Arte Família Abreu
+  </h1>
+  <table mat-table [dataSource]="artWorks">
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let artWork"> {{artWork.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef> Autor </th>
+      <td mat-cell *matCellDef="let artWork"> {{artWork.author}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="creationYear">
+      <th mat-header-cell *matHeaderCellDef> Ano Criação </th>
+      <td mat-cell *matCellDef="let artWork"> {{artWork.creationYear}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="askPrice">
+      <th mat-header-cell *matHeaderCellDef> Preço (milhões) </th>
+      <td mat-cell *matCellDef="let artWork"> {{artWork.askPrice/1000000 | number : '1.3-3'}} EUR </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -13,4 +13,10 @@ export class GalleryService {
   getGalleries(): Observable<Gallery[]> {
     return this.http.get<Gallery[]>(`${this.baseUrl}`);
   }
+
+  saveGallery(data:any) {
+    return this.http.post(`${this.baseUrl}`, data);
+  }
+
+  
 }

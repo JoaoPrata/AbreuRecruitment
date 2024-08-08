@@ -1,0 +1,26 @@
+
+
+<h1 mat-dialog-title> Adicionar Galeria </h1>
+
+<form [formGroup]="galleryForm" (ngSubmit)="saveGallery()">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Cidade</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Responsável</mat-label>
+      <input matInput formControlName="manager">
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button type=button (click)="closeModal()"> Fechar </button>
+    <button> Adicionar </button>
+  </div>
+</form>
+
